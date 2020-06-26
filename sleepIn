@@ -1,0 +1,84 @@
+import java.util.Scanner;
+
+public class Beach {
+   private static int vocation;// отпускнуой месяц
+   private static int enterkDay,enterMonth;// вводимые день и месяц
+    public static void main(String[] args) {
+         go();
+    }
+
+
+    private static void go(){
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Задайте отпускной месяц 1 - 12");
+            vocation = scanner.nextInt();
+            cheakMonthRight(vocation);
+            System.out.println("Задайте день недели 1-7 ");
+            enterkDay = scanner.nextInt();
+            cheakDay(enterkDay);
+            System.out.println("Задайте месяц 1-12 ");
+            enterMonth = scanner.nextInt();
+            cheakMonthRight(enterMonth);
+            if(sleepIn(enterkDay,enterMonth)){
+                System.out.println("Спи пес");
+                go();
+            }else {
+                System.out.println("Пора на каторгу");
+                go();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            go();
+        }
+    }
+
+    private static void cheakMonthRight(int dayMonth){//проверка корректности ввода месяца
+       try {
+           if (dayMonth < 1 || dayMonth > 12) {
+               System.out.println("Не корректное число месяца");
+               go();
+           }
+       }catch (Exception e){
+           e.printStackTrace();
+           go();
+       }
+    }
+
+    private static boolean sleepIn(int enterkDay,int enterMonth) {//проверка спать или нет
+        if (enterMonth == vocation) {
+            return true;
+        } else {
+            switch (enterkDay) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    System.out.println("Рабочий день");
+                    return false;
+                case 6:
+                case 7:
+                    System.out.println("Выходные");
+                    return true;
+                    default:
+                        return false;
+            }
+        }
+    }
+
+    private static void cheakDay(int day){//проверка корректности дня недели
+        try {
+            if(day<1 || day>7){
+                System.out.println("Не корректное число дня");
+                go();
+            }else {
+                enterkDay = day;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            go();
+        }
+
+    }
+}
